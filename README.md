@@ -1,2 +1,2 @@
-# Jofo_da_forca
+# Jogo_da_forca
 Jogo da forca em linguagem C.
