@@ -1,169 +1,159 @@
+/*****************************************************************************
+*                     			JOGO DA FORCA							     *
+* - Roda no proprio terminal						     					 *
+* - Uma pessoa escolhe uma palavra e o outro tenta adivinhar	             *
+*									     									 *
+* 			Douglas Henrique de Souza Pereira - maio/junho 2019			     *
+******************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdbool.h>
 #include <time.h>
 #include <locale.h>
 
-FILE* abrirArquivo (char nome[], char modo[]);
-FILE* fecharArquivo (FILE* jogo);
 void menu ();
-void adicionarDica ();
+void jogar ();
 void adicionarPalavra ();
-void jogar ();
+void adicionarDica ();
 void boneco ();
-void jogar ();
-void resultado (char resultado [201], bool resultado);
+void resultado ();
 
 int main () {
 	setlocale (LC_ALL, "");
-	FILE *temp;
-	temp = abrirArquivo ("main.c", "r");
-	temp = fecharArquiv0 (temp);
-	return 0;
-}
-FILE* abrirArquivo (char nome[], char modo[]) {
-	FILE *jogo;
-	jogo = fopen (nome, modo);
-	if (jogo == NULL) {
-		printf ("\nNao foi possível abrir o jogo %s\n", nome);
-	}
-	return jogo;	
-}
-
-FILE* fecharArquivo (FILE *jogo) {
-	if (jogo == NULL)
-		printf ("Erro ao fechar o arquivo");
-		fclose (jogo);
-	return jogo;
-}
+	
 
 void menu () {
 	do {
-		printf ("\n\tÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»");
-		printf ("\n\tº                            º");
-		printf ("\n\tº         JOGO DA FORCA      º");
-		printf ("\n\tº                            º");
-		printf ("\n\tÌÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¹");
-		printf ("\n\tº         [1] JOGAR                   º");
-		printf ("\n\tº         [2] ADICIONAR DICA                  º");
-		printf ("\n\tº         [3] ADICIONAR PALAVRA                º");
-		printf ("\n\tº         [4] SAIR                  º");
+		printf ("\n\t************************************");
+		printf ("\n\t|                            		|");
+		printf ("\n\t|           JOGO DA FORCA      	|");
+		printf ("\n\t|                            		|");
+		printf ("\n\t************************************");
+		printf ("\n\t|         	   [1] JOGAR            |");
+		printf ("\n\t          [Outra tecla] SAIR       |"); 
+		printf ("\n\t************************************");
+
+		
 		printf ("\n\tDigite uma das opções: ");
+		scanf ("%c", &opcao);
+		fflush (stdin);
 		
 		if (opcao == '1') {
 			jogar ();
-		} else if (opcao == '2') {
-			adicionarDica ();
-		} else if (opcao == '3') {
-			adicionarPalavra ();
+		} else {
+			break;
 		}
 		
-	} while (opcao != 4);
+	} while (opcao != '1');
 }
 
 void jogar () {
-	char palavra [201];
-	char dica [201];
+	char palavra [50];
+	char dica [50];
+	char resp
+	int contadorErros;
+	
+	printf ("_________________________________________________________________________________________")
+	printf ("\t\t\tInforme a a palavra para começar.\n");
+	printf ("\t\t\tPALAVRA: ");
+	scanf ("%s", &palavra [50]);
+	fflush (stdin);
+	
+	printf ("\t\t\tAgora informe a dica para ficar mais fácil de seu amigo conseguir acertar.\n");
+	printf ("\t\t\tDICA: ");
+	scanf ("%s", &dica [50]);
+	fflush (stdin);
+	
+	printf ("Tem certeza de que deseja escolher a palavra %s com a dica %? <S> SIM <Outra> NÃO\n");
+	scanf ("%c", &resp);
 }
 
-void resultado (char palavra [201], bool resultado) {
+void boneco (ref int contadorErros) {
+
+		if (contadorErros == 1) {
+			printf ("\n_________________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|");
+			printf ("\n|");	
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+		} else if (contadorErros == 2) {
+			printf ("\n _______________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|			 |");
+			printf ("\n|		     |");	
+			printf ("\n|	         |");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+		} else if (contadorErros == 3) {
+			printf ("\n _______________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|			 |\\");
+			printf ("\n|		     | \\");	
+			printf ("\n|	         |");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+		} else if (contadorErros == 4) {
+			printf ("\n _______________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|			/|\\");
+			printf ("\n|		   / | \\");	
+			printf ("\n|	         |");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+			printf ("\n|");
+		} else if (contadorErros == 5) {
+			printf ("\n _______________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|			/|\\");
+			printf ("\n|		   / | \\");	
+			printf ("\n|	         |");
+			printf ("\n|	          \\");
+			printf ("\n|               \\");
+			printf ("\n|");
+			printf ("\n|");
+		} else if (contadorErros == 6) {
+			printf ("\n________________");
+			printf ("\n|			***");
+			printf ("\n|		   *	*");	
+			printf ("\n|		   	***");
+			printf ("\n|			/|\\");
+			printf ("\n|		   / | \\");	
+			printf ("\n|	         |");
+			printf ("\n|	        / \\");
+			printf ("\n|           /   \\");
+			printf ("\n|");
+			printf ("\n|");
+		}
+	}
+}
+
+/*void resultado (char palavra [201], bool resultado) {
 	SYSTEM ("cls");
 	printf ("----------RESULTADO----------");
-	if (resultado=true) {
+	if (resultado = true) {
 		printf ("\n\t\t VOCÊ GANHOU!");
 	} else {
 		printf ("\n\t\t VOCÊ PERDEU!");
 	}
-}
+}*/
 
-void boneco (int membros) {
-	switch (membros) {
-	case 1:	
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ");
-		printf ("\nÛ");	
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-	case 2:
-	default: 
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ			 |");
-		printf ("\nÛ		     |");	
-		printf ("\nÛ	         |");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-	case 3:
-	default: 
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ			 |\\");
-		printf ("\nÛ		     | \\");	
-		printf ("\nÛ	         |");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-	case 4:
-	default: 
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ			/|\\");
-		printf ("\nÛ		   / | \\");	
-		printf ("\nÛ	         |");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		printf ("\nÛ");
-	
-	case 5: 
-	default: 
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ			/|\\");
-		printf ("\nÛ		   / | \\");	
-		printf ("\nÛ	         |");
-		printf ("\nÛ	          \\");
-		printf ("\nÛ               \\");
-		printf ("\nÛ");
-		printf ("\nÛ");
-		
-	case 6:
-	default: 
-		printf ("\nÛßßßßßßßßßßßßßß");
-		printf ("\nÛ			***");
-		printf ("\nÛ		   *	*");	
-		printf ("\nÛ		   	***");
-		printf ("\nÛ			/|\\");
-		printf ("\nÛ		   / | \\");	
-		printf ("\nÛ	         |");
-		printf ("\nÛ	        / \\");
-		printf ("\nÛ           /   \\");
-		printf ("\nÛ");
-		printf ("\nÛ");
-	}
-}
-void pausa () {
-	
-	printf ("\nAPERTE UMS TECLA PARA VOLTAR AO MENU PRINCIPAL");
-	fflush (stdin);
-	getchar ();
-	
-}
