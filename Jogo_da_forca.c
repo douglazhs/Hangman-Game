@@ -62,10 +62,10 @@ void jogar () {
 	
 	printf ("\t\t\tAgora informe a dica para ficar mais fácil de seu amigo conseguir acertar.\n");
 	printf ("\t\t\tDICA: ");
-	scanf ("%s", &dica [50]);
+	scanf ("%s", dica [50]);
 	fflush (stdin);
 	
-	printf ("Tem certeza de que deseja escolher a palavra %s com a dica %? <S> SIM <Outra> NÃO\n");
+	printf ("Tem certeza de que deseja escolher a palavra %s com a dica %s? <S> SIM <Outra> NÃO\n", palavra, dica);
 	scanf ("%c", &resp);
 }
 
