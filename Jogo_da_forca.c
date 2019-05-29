@@ -20,10 +20,11 @@ void boneco ();
 void resultado ();
 
 int main () {
-	setlocale (LC_ALL, "");
+	//setlocale (LC_ALL, "");
 	
 
 void menu () {
+	int opcao;
 	do {
 		printf ("\n\t************************************");
 		printf ("\n\t|                            		|");
@@ -31,21 +32,21 @@ void menu () {
 		printf ("\n\t|                            		|");
 		printf ("\n\t************************************");
 		printf ("\n\t|         	   [1] JOGAR            |");
-		printf ("\n\t          [Outra tecla] SAIR       |"); 
+		printf ("\n\t|         [Outra tecla] SAIR       |"); 
 		printf ("\n\t************************************");
 
 		
 		printf ("\n\tDigite uma das opções: ");
-		scanf ("%c", &opcao);
+		scanf ("%d", &opcao);
 		fflush (stdin);
 		
-		if (opcao == '1') {
+		if (opcao == 1) {
 			jogar ();
 		} else {
 			break;
 		}
 		
-	} while (opcao != '1');
+	} while (opcao != 1);
 }
 
 void jogar () {
@@ -69,7 +70,7 @@ void jogar () {
 	scanf ("%c", &resp);
 }
 
-void boneco (ref int contadorErros) {
+void boneco (int *contadorErros) {
 
 		if (contadorErros == 1) {
 			printf ("\n_________________");
