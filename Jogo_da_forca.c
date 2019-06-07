@@ -3,7 +3,7 @@
 * - Roda no proprio terminal						     					 *
 * - Uma pessoa escolhe uma palavra e o outro tenta adivinhar	             *
 *									     									 *
-* 			Douglas Henrique de Souza Pereira - maio/junho 2019			     *
+* - Douglas Henrique de Souza Pereira - maio/junho 2019			             *
 ******************************************************************************/
 
 #include <stdio.h>
@@ -11,20 +11,20 @@
 #include <string.h>
 #include <time.h>
 #include <locale.h>
-
-#define UNDERLINE "_"
+#include <ctype.h>
 
 void menu ();
 void jogar ();
 char chute ();
 char adivinharPalavra ();
 void adicionarPalavra ();
-void adicionarDica ();
 void boneco (int contadorErros);
+void adicionarDica ();
 void resultado ();
 
 int main () {
 	setlocale (LC_ALL, "");
+
 	menu ();
 
 	return 0;
@@ -58,95 +58,132 @@ void menu () {
 }
 
 void jogar () {
-	char palavra [50], chute[50];
-	char dica [50];
-	char resp;
+	char palavra[50], chute[50];
+	char dica[50];
 	char letra;
+	char resp;
 	int contadorErros = 0, i, contador = 0;
 	int escolha;
 
-	system ("cls");
-	printf ("\n\t\t\t\t\t   Informe a a palavra para começar.\n");
-	printf ("\n\t\t\t\t\t\t      PALAVRA: ");
-	gets (palavra);
-	fflush (stdin);
-
-	printf ("\n-----------------------------------------------------------------------------------------------------------------------");
-
-	printf ("\n\t\t\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
-	printf ("\n\t\t\t\t\t\t      DICA: ");
-	gets (dica);
-	fflush (stdin);
-
-	system ("cls");
-
-	printf ("\n\t\t\t\t\t\t\t*ATENÇÃO*");
-	printf ("\n\n\t\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"? <S> SIM <Outra> NAO\n", palavra, dica);
-	printf ("\n\t\tR: ");
-	scanf ("%c", &resp);
-
-	system ("cls");
-
-
-
-	printf ("\n------------------------------------------------------------------------------------------------------------------------");
-	printf ("\n\t\t\tAgora, você pode escolher uma letra ou tentar acertar sua palavra!");
-	printf ("\n\t\t\t*Lembrando que você pode errar até 5 vezes.");
-	printf ("\n------------------------------------------------------------------------------------------------------------------------");
-	printf ("\n\t\t\t\t\t\t\tVALENDO!");
-
-
-
-	boneco (contadorErros);
-	printf ("\n");
 	do {
-		printf ("_");
-		i++;
-	} while (i < strlen (palavra));
 
+		system ("cls");
+		
+		
+		printf ("\n\t\t\t\t\t   Informe a a palavra para começar.\n");
+		
+		do {
+			printf ("\n\t\t\t\t\t\t      PALAVRA: ");
+			gets (palavra);
+			
+			system ("cls");
 
+			if (strlen (palavra) == 0) {
+				printf ("\t\t\t\tPor favor, digite uma palavra para começar o jogo!");
+			}
+	
+		} while (strlen (palavra) == 0);
+	
+		for (i = 0; i < strlen (palavra); i++) {
+			palavra[i] = toupper (palavra[i]);
+		}
+		fflush (stdin);
 
-	printf ("\n\n\t[1] Chutar");
-	printf ("\n\t[2] Adivinhar");
-	printf ("\n\t");
-	scanf ("%d", &escolha);
-	fflush (stdin);
+		
+		printf ("\n\t\t\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
 
-	do {
-		if (escolha == 1) {
-			printf ("\n\tDigite uma letra: ");
-			scanf ("%c", &letra);
+		do {
+
+			printf ("\n\t\t\t\t\t\t      DICA: ");
+			gets (dica);
+			
+			system ("cls");
+			
+			for (i = 0; i < strlen (dica); i++) {
+				dica[i] = toupper (dica[i]);
+			}
 			fflush (stdin);
-		} else if (escolha == 2) {
+			
+			if (strlen(dica) == 0) {
+				printf ("\n\t\t\t\t\t   Por favor, digite uma dica!");
+			}
+			
+		} while (strlen (dica) == 0);
+
+		system ("cls");
+
+		printf ("\n\t\t\t\t\t\t\t*ATENÇÃO*");
+		printf ("\n\n\t\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"? <S> SIM <Outra> NAO\n", palavra, dica);
+		printf ("\n\t\tR: ");
+		scanf ("%c", &resp);
+		fflush (stdin);
+	
+	} while (resp != 's' && strlen (palavra) == 0 && strlen (dica) == 0);
+
+	system ("cls");
+
+
+	do {
+		printf ("\n------------------------------------------------------------------------------------------------------------------------");
+		printf ("\n\t\t\t*Agora, você pode escolher uma letra ou tentar acertar sua palavra!");
+		printf ("\n\t\t\t*Lembrando que você pode errar até 5 vezes.");
+		printf ("\n------------------------------------------------------------------------------------------------------------------------");
+		printf ("\n\t\t\t\t\t\t\tVALENDO!");
+
+		printf ("\n\n\tDICA: %s", dica);
+		printf ("\n\n\tQuantidade de letras na palavra: %d", strlen (palavra));
+		
+		boneco (contadorErros);
+		
+		do {
+			printf ("_ ");
+			i++;
+		
+		} while (i < strlen (palavra));
+		
+		
+		
+		printf ("\n\n\tLetras já escolhidas: %c", letra);
+
+		printf ("\n\n\tTentar uma letra: ");
+
+		do {
+			scanf ("%c", &letra);
+			letra = toupper(letra);
+			fflush (stdin);
+		} while (contadorErros < 5);
+
+		if (letra == '#') {
 			printf ("\n\tDigite o seu chute: ");
 			gets (chute);
+			
+			for (i = 0; i < strlen (chute); i++) {
+				chute[i] = toupper (chute[i]);
+			}
+			
+			fflush (stdin);
 		}
-		contador++;
-	} while (contador < strlen (palavra));
+		
+		system ("pause");
 
-	for (i = 0; i < strlen(palavra); i++) {
-		if (palavra[i] == letra && palavra[i + 1] == letra) {
-			palavra[i] = letra;
-		} else {
-			contadorErros++;
-		}
-	}
+	} while (letra != '#');
+	
 }
 
 void boneco (int contadorErros) {
 
-		if (contadorErros = 0) {
-			printf ("\n_________________");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
-			printf ("\n|");
+		if (contadorErros == 0) {
+			printf ("\n\t_________________");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
+			printf ("\n\t|");
 		}
 		else if (contadorErros == 1) {
 			printf ("\n_________________");
