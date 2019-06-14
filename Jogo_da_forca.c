@@ -9,18 +9,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <locale.h>
 #include <ctype.h>
 
 void menu ();
 void jogar ();
-char chute ();
-char adivinharPalavra ();
-void adicionarPalavra ();
 void boneco (int contadorErros);
-void adicionarDica ();
-void resultado ();
 
 int main () {
 	setlocale (LC_ALL, "");
@@ -35,9 +29,16 @@ void menu () {
 	int opcao;
 	do {
 		printf ("\n========================================================================================================================");
-		printf ("\n                                            ");
-		printf ("\n\t\t\t\t\t              JOGO DA FORCA       ");
-		printf ("\n                                            ");
+		printf ("\n");
+		printf ("\n\t\t\t\t\t                 JOGO DA FORCA");
+		printf ("\n\t\t\t\t\t\t________________");
+		printf ("\n\t\t\t\t\t\t|             ***");
+		printf ("\n\t\t\t\t\t\t|            *   *");
+		printf ("\n\t\t\t\t\t\t|             ***");
+		printf ("\n\t\t\t\t\t\t|             /|\\");
+		printf ("\n\t\t\t\t\t\t|            / | \\");
+		printf ("\n\t\t\t\t\t\t|             / \\");
+		printf ("\n\t\t\t\t\t\t|            /   \\");
 		printf ("\n========================================================================================================================");
 		printf ("\n\t\t\t\t\t              [1] JOGAR            ");
 		printf ("\n\n\t\t\t\t\t         [Outra tecla] SAIR     ");
@@ -58,19 +59,13 @@ void menu () {
 }
 
 void jogar () {
-	char palavra[50], chute[50];
-	char dica[50];
-	char letra;
-	char resp;
-	char esconde[] = "_";
-	int contadorErros = 0, i, contador = 0;
-	int escolha;
-	int chances = 6;
+	char palavra[50], chute[50], dica[50], letra[50], esconde[50] = "_";
+	char resp, tecla;
+	int contadorErros = 0, i, contador;
+	int chances = 7, pontos = 0;
 
 	do {
-
 		system ("cls");
-
 
 		printf ("\n\t\t\t\t\t   Informe a a palavra para começar.\n");
 
@@ -90,7 +85,6 @@ void jogar () {
 			palavra[i] = toupper (palavra[i]);
 		}
 		fflush (stdin);
-
 
 		printf ("\n\t\t\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
 
@@ -120,72 +114,91 @@ void jogar () {
 		scanf ("%c", &resp);
 		fflush (stdin);
 
-	} while (resp != 's' && strlen (palavra) == 0 && strlen (dica) == 0);
+	} while (resp != 's');
 
 	system ("cls");
-	
-	do {
-		for (contador = 0; contadorErros < 7; contador++) {
-            for (contador = 0; contador < strlen(palavra); contador++) {
-				printf ("------------------------------------------------------------------------------------------------------------------------");
-				printf ("\n\t\t\tINSTRUÇÕES:");
-				printf ("\n\n\t\t\t*Agora, você pode escolher uma letra ou tentar acertar sua palavra!");
-				printf ("\n\t\t\t*Lembrando que você pode errar até 6 vezes.");
-				printf ("\n\t\t\t*Basta Digitar \"#\" quando souber a palavra e quiser chutar.");
-				printf ("\n------------------------------------------------------------------------------------------------------------------------");
-				printf ("\n\t\t\t\t\t\t\tVALENDO!");
 
-				printf ("\n\n\tDICA: %s", dica);
-				printf ("\n\n\tQuantidade de letras na palavra: %d", strlen (palavra));
-				printf ("\n\tChances disponíveis: %d", chances);
+	for (contador = 0; contador < strlen (palavra) && contador < strlen (palavra); contador++) {
 
-				boneco (contadorErros);
+		//for (contador = 0; contador < strlen (palavra); contador++) {
 
-				printf ("%s", esconde);
-			
-				printf ("\n\n\tLetras já escolhidas: %c ", letra);
-				printf ("\n\n\tTentar uma letra: ");
-				scanf ("%c", &letra);
-				letra = toupper(letra);
-				fflush (stdin);
+  			printf ("------------------------------------------------------------------------------------------------------------------------");
+			printf ("\n\t\t\tINSTRUÇÕES:");
+			printf ("\n\n\t\t\t*Agora, você pode escolher uma letra ou tentar acertar sua palavra!");
+			printf ("\n\t\t\t*Lembrando que você pode errar até 6 vezes.");
+			printf ("\n\t\t\t*Basta Digitar \"#\" quando souber a palavra e quiser chutar.");
+			printf ("\n------------------------------------------------------------------------------------------------------------------------");
+			printf ("\n\t\t\t\t\t\t\tVALENDO!");
 
-				if (letra == palavra[contador]) {
-					esconde[contador] = letra;
-				} else if (letra == '#') {
-					printf ("\n\tDigite o seu chute: ");
-					gets (chute);
-					fflush (stdin);
-					for (i = 0; i < strlen (chute); i++) {
-						chute[i] = toupper (chute[i]);
-					}
-				} else {
-					contadorErros++;
-					chances--;
-				}
+			printf ("\n\n\tDICA: %s", dica);
+			printf ("\n\n\tQuantidade de letras na palavra: %d", strlen (palavra));
+			printf ("\n\tChances disponíveis: %d", chances);
 
-				if (palavra[contador] == ' ') {
-					esconde[contador] = '-';
-				}
-				
-			system ("cls");
+			boneco (contadorErros);
 
-			}
+			printf ("%s ", esconde);
 
-		}
-		
-		if (letra == '#') {
-			printf ("\n\tDigite o seu chute: ");
-			gets (chute);
+			printf ("\n\n\tLetras já escolhidas: %c ", letra[contador]);
+			printf ("\n\n\tTentar uma letra: ");
+			scanf ("%c", &letra[contador]);
+			letra[contador] = toupper(letra[contador]);
 			fflush (stdin);
 
-			for (i = 0; i < strlen (chute); i++) {
-				chute[i] = toupper (chute[i]);
+			if (letra[contador] == palavra[contador]) {
+				esconde[contador] = letra[contador];
+				pontos++;
+			} else if (letra[contador] == '#') {
+				printf ("\n\tDigite o seu chute: ");
+				gets (chute);
+				fflush (stdin);
+
+				for (i = 0; i < strlen (chute); i++) {
+					chute[i] = toupper (chute[i]);
+				}
+
+				if (strcmp (chute, palavra) == 0) {
+					printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: %s", palavra);
+					printf ("\n\n\n\tDigite uma tecla pra voltar ao menu: ");
+					scanf ("%c", &tecla);
+					fflush (stdin);
+					system ("cls");
+					menu ();
+				} else {
+					system ("cls");
+					boneco (contadorErros = 7);
+					printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s", palavra);
+					printf ("\n\n\n\tDigite uma tecla pra voltar ao menu: ");
+					scanf ("%c", &tecla);
+					fflush (stdin);
+					system ("cls");
+					menu ();
+				}
+			} else {
+				contadorErros++;
+				chances--;
 			}
 
-		}
+			if (pontos == strlen (palavra)) {
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: %s", palavra);
+				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu: ");
+				scanf ("%c", &tecla);
+				fflush (stdin);
+				system ("cls");
+				menu ();
+			}
 
-	} while (letra != '#');
-
+			if (contadorErros == 7) {
+				system ("cls");
+				boneco (contadorErros);
+				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s", palavra);
+				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu: ");
+				scanf ("%c", &tecla);
+				fflush (stdin);
+				system ("cls");
+				menu ();
+			}
+			system ("cls");
+	}
 }
 
 void boneco (int contadorErros) {
@@ -275,12 +288,18 @@ void boneco (int contadorErros) {
 			printf ("\n\t|           /   \\");
 			printf ("\n\t|");
 			printf ("\n\t|");
+		} else if (contadorErros == 7) {
+			printf ("\n\t________________");
+			printf ("\n\t|            ***");
+			printf ("\n\t|           *   *");
+			printf ("\n\t|            ***");
+			printf ("\n\t|          -------");
+			printf ("\n\t|            /|\\");
+			printf ("\n\t|           / | \\");
+			printf ("\n\t|             |");
+			printf ("\n\t|            / \\");
+			printf ("\n\t|           /   \\");
+			printf ("\n\t|");
+			printf ("\n\t|");
 		}
 }
-
-//void resultado (char palavra [201], bool resultado) {
-//	SYSTEM ("cls");
-//	printf ("----------RESULTADO----------");
-//	if (palavra)
-//	}
-//}
