@@ -67,16 +67,16 @@ void jogar () {
 	do {
 		system ("cls");
 
-		printf ("\n\t\t\t\t\t   Informe a a palavra para começar.\n");
+		printf ("\n\tInforme a a palavra para começar.\n");
 
 		do {
-			printf ("\n\t\t\t\t\t\t      PALAVRA: ");
+			printf ("\n\tPALAVRA: ");
 			gets (palavra);
 
 			system ("cls");
 
 			if (strlen (palavra) == 0) {
-				printf ("\t\t\t\tPor favor, digite uma palavra para começar o jogo!");
+				printf ("\tPor favor, digite uma palavra para começar o jogo!");
 			}
 
 		} while (strlen (palavra) == 0);
@@ -86,11 +86,11 @@ void jogar () {
 		}
 		fflush (stdin);
 
-		printf ("\n\t\t\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
+		printf ("\n\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
 
 		do {
 
-			printf ("\n\t\t\t\t\t\t      DICA: ");
+			printf ("\n\tDICA: ");
 			gets (dica);
 
 			system ("cls");
@@ -101,7 +101,7 @@ void jogar () {
 			fflush (stdin);
 
 			if (strlen(dica) == 0) {
-				printf ("\n\t\t\t\t\t   Por favor, digite uma dica!");
+				printf ("\n\tPor favor, digite uma dica!");
 			}
 
 		} while (strlen (dica) == 0);
@@ -109,8 +109,8 @@ void jogar () {
 		system ("cls");
 
 		printf ("\n\t\t\t\t\t\t\t*ATENÇÃO*");
-		printf ("\n\n\t\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"? <S> SIM <Outra> NAO\n", palavra, dica);
-		printf ("\n\t\tR: ");
+		printf ("\n\n\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"? <S> SIM <Outra> NAO\n", palavra, dica);
+		printf ("\n\tR: ");
 		scanf ("%c", &resp);
 		fflush (stdin);
 
@@ -118,9 +118,9 @@ void jogar () {
 
 	system ("cls");
 
-	for (contador = 0; contador < strlen (palavra) && contador < strlen (palavra); contador++) {
-
-		//for (contador = 0; contador < strlen (palavra); contador++) {
+	for (contador = 0; contadorErros < 8 && contador < strlen(palavra); contador++) {
+		esconde[contador] = '_';
+		//while (chances > 0) {
 
   			printf ("------------------------------------------------------------------------------------------------------------------------");
 			printf ("\n\t\t\tINSTRUÇÕES:");
@@ -145,7 +145,7 @@ void jogar () {
 			fflush (stdin);
 
 			if (letra[contador] == palavra[contador]) {
-				esconde[contador] = letra[contador];
+				esconde[contador] = palavra[contador];
 				pontos++;
 			} else if (letra[contador] == '#') {
 				printf ("\n\tDigite o seu chute: ");
@@ -198,7 +198,8 @@ void jogar () {
 				menu ();
 			}
 			system ("cls");
-	}
+		//}
+	}   
 }
 
 void boneco (int contadorErros) {
