@@ -1,9 +1,9 @@
 /*****************************************************************************
-*                     			JOGO DA FORCA							     *
-* - Roda no proprio terminal						     					 *
-* - Uma pessoa escolhe uma palavra e o outro tenta adivinhar	             *
-*									     									 *
-* - Douglas Henrique de Souza Pereira - maio/junho 2019			             *
+*                               JOGO DA FORCA                                *
+* - Roda no proprio terminal                                                 *
+* - Uma pessoa escolhe uma palavra e o outro tenta adivinhar                 *
+*                                                                            *
+* - Douglas Henrique de Souza Pereira - maio/junho 2019                      *
 ******************************************************************************/
 
 #include <stdio.h>
