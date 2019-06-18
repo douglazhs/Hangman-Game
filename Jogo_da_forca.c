@@ -13,6 +13,7 @@
 #include <ctype.h>
 
 void menu ();
+void instrucoes ();
 void multiPlayer ();
 void singlePlayer ();
 void boneco (int contadorErros);
@@ -41,23 +42,50 @@ void menu () {
 		printf ("\n\t\t\t\t\t\t|             / \\");
 		printf ("\n\t\t\t\t\t\t|            /   \\");
 		printf ("\n========================================================================================================================");
-		printf ("\n\t\t\t\t\t           [1] JOGAR MODO MULTIPLAYER");
-		printf ("\n\t\t\t\t\t           [2] JOGAR MODO SINGLE PLAYER");
-		printf ("\n\t\t\t\t\t           [3] SAIR");
+		printf ("\n\t\t\t\t\t        [1] JOGAR MODO MULTIPLAYER");
+		printf ("\n\t\t\t\t\t        [2] JOGAR MODO SINGLE PLAYER");
+		printf ("\n\t\t\t\t\t        [3] INSTRUÇÕES");
+		printf ("\n\t\t\t\t\t        [4] SAIR");
 		printf ("\n\t\t\t\t\t");
 
 
-		printf ("\n\n\t\t\t\t\t\t   OPÇÃO -> ");
+		printf ("\n\n\t\t\t\t\t\tOPÇÃO -> ");
 		scanf ("%d", &opcao);
 		fflush (stdin);
 
 		if (opcao == 1) {
 			multiPlayer ();
-		} else {
+		} else if (opcao == 3) {
+			instrucoes ();
+		} else if (opcao == 4) {
 			break;
 		}
+		
+		system ("cls");
 
 	} while (opcao != 1);
+}
+
+void instrucoes () {
+	
+	char voltar;
+	
+	system ("cls");
+	
+	printf ("\n\t\t\t-> Existem dois jogadores: o enforcador e o enforcado.");
+	printf ("\n\n\t\t\t-> O enforcador escolhe uma palavra e uma dica e o enforcado tenta adivinhar.");
+	printf ("\n\n\t\t\t-> O enforcador tem que garantir que o enforcado não veja a palavra que irá digitar.");
+	printf ("\n\n\t\t\t-> A palavra e a dica podem ter no máximo 50 letras.");
+	printf ("\n\n\t\t\t-> O campo da palavra ou da dica não pode ser vazio.");
+	printf ("\n\n\t\t\t-> O enforcado tenta acertar a palavra chutando letras.");
+	printf ("\n\n\t\t\t-> São concedidas apenas 7 chances de erro.");
+	printf ("\n\n\t\t\t-> Caso queira tentar chutar a palavra, basta digitar a tecla \"#\".");
+	
+	printf ("\n\n\n\n\n\n\t\t\t\t\tDigite uma tecla para voltar ao menu ->");
+	scanf ("%c", &voltar);
+	
+	system ("cls");
+	
 }
 
 void multiPlayer () {
