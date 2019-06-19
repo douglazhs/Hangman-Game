@@ -4,6 +4,7 @@
 * - Uma pessoa escolhe uma palavra e o outro tenta adivinhar                 *
 *                                                                            *
 * - Douglas Henrique de Souza Pereira - maio/junho 2019                      *
+* - UC19107076                                                               *
 ******************************************************************************/
 
 #include <stdio.h>
@@ -63,7 +64,7 @@ void menu () {
 		
 		system ("cls");
 
-	} while (opcao != 1);
+	} while (opcao != 1 || opcao != 2 || opcao != 3);
 }
 
 void instrucoes () {
@@ -83,6 +84,7 @@ void instrucoes () {
 	
 	printf ("\n\n\n\n\n\n\t\t\t\t\tDigite uma tecla para voltar ao menu ->");
 	scanf ("%c", &voltar);
+	fflush (stdin);
 	
 	system ("cls");
 	
@@ -97,12 +99,13 @@ void multiPlayer () {
 	do {
 		system ("cls");
 		
-		printf ("\tCERTIFIQUE-SE DE QUE SEU AMIGO NÃO O VEJA ESCREVENDO A PALAVRA!");
+		printf ("\n\tCERTIFIQUE-SE DE QUE SEU AMIGO NÃO O VEJA ESCREVENDO A PALAVRA!");
 		printf ("\n\n\tInforme a a palavra para começar.\n");
 
 		do {
 			printf ("\n\tPALAVRA -> ");
 			gets (palavra);
+			fflush (stdin);
 
 			system ("cls");
 
@@ -115,7 +118,6 @@ void multiPlayer () {
 		for (i = 0; i < strlen (palavra); i++) {
 			palavra[i] = toupper (palavra[i]);
 		}
-		fflush (stdin);
 
 		printf ("\n\tAgora informe a dica para ficar mais facil de seu amigo conseguir acertar.\n");
 
@@ -123,13 +125,13 @@ void multiPlayer () {
 
 			printf ("\n\tDICA -> ");
 			gets (dica);
+			fflush (stdin);
 
 			system ("cls");
 
 			for (i = 0; i < strlen (dica); i++) {
 				dica[i] = toupper (dica[i]);
 			}
-			fflush (stdin);
 
 			if (strlen(dica) == 0) {
 				printf ("\n\tPor favor, digite uma dica!");
@@ -139,9 +141,10 @@ void multiPlayer () {
 
 		system ("cls");
 
-		printf ("\n\t\t\t\t\t\t\t*ATENÇÃO*");
-		printf ("\n\n\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"? <S> SIM <Outra> NAO\n", palavra, dica);
-		printf ("\n\t-> ");
+		printf ("\n\t\t\t\t\t\t********ATENÇÃO********");
+		printf ("\n------------------------------------------------------------------------------------------------------------------------");
+		printf ("\n\n\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"?\n", palavra, dica);
+		printf ("\n\t(S/N) -> ");
 		scanf ("%c", &resp);
 		fflush (stdin);
 
@@ -155,7 +158,7 @@ void multiPlayer () {
 
 	for (contador = 0; contadorErros < 8; contador++) {
   		printf ("------------------------------------------------------------------------------------------------------------------------");
-		printf ("\n\t\t\tINSTRUÇÕES:");
+		printf ("\n\t\t\tRELEMBRANDO:");
 		printf ("\n\n\t\t\t*Agora, você pode escolher uma letra ou tentar acertar sua palavra!");
 		printf ("\n\t\t\t*Lembrando que você pode errar até 6 vezes.");
 		printf ("\n\t\t\t*Basta Digitar \"#\" quando souber a palavra e quiser chutar.");
@@ -188,7 +191,7 @@ void multiPlayer () {
 				mostraPalavra[contador] = letra;
 				pontos++;
 			} else {
-				contadorErros++;
+				//contadorErros++;
 			}
 
 		}
