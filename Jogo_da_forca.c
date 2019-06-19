@@ -12,6 +12,12 @@
 #include <string.h>
 #include <locale.h>
 #include <ctype.h>
+#include <conio.h>
+#include <windows.h>
+
+#define ANSI_COLOR_RED      "\x1b[31m"
+#define ANSI_COLOR_GREEN	"\e[0;32m"
+#define ANSI_COLOR_RESET    "\x1b[0m"
 
 void menu ();
 void instrucoes ();
@@ -20,6 +26,7 @@ void singlePlayer ();
 void boneco (int contadorErros);
 
 int main () {
+
 	setlocale (LC_ALL, "");
 
 	menu ();
@@ -27,9 +34,10 @@ int main () {
 	return 0;
 }
 
-
 void menu () {
+
 	int opcao;
+
 	do {
 		printf ("\n========================================================================================================================");
 		printf ("\n");
@@ -43,12 +51,11 @@ void menu () {
 		printf ("\n\t\t\t\t\t\t|             / \\");
 		printf ("\n\t\t\t\t\t\t|            /   \\");
 		printf ("\n========================================================================================================================");
-		printf ("\n\t\t\t\t\t        [1] JOGAR MODO MULTIPLAYER");
-		printf ("\n\t\t\t\t\t        [2] JOGAR MODO SINGLE PLAYER");
+		printf ("\n\t\t\t\t\t        [1] JOGAR MULTIPLAYER");
+		printf ("\n\t\t\t\t\t        [2] JOGAR SINGLE PLAYER");
 		printf ("\n\t\t\t\t\t        [3] INSTRUÇÕES");
 		printf ("\n\t\t\t\t\t        [4] SAIR");
 		printf ("\n\t\t\t\t\t");
-
 
 		printf ("\n\n\t\t\t\t\t\tOPÇÃO -> ");
 		scanf ("%d", &opcao);
@@ -61,18 +68,18 @@ void menu () {
 		} else if (opcao == 4) {
 			break;
 		}
-		
+
 		system ("cls");
 
-	} while (opcao != 1 || opcao != 2 || opcao != 3);
+	} while (opcao != 1);
 }
 
 void instrucoes () {
-	
+
 	char voltar;
-	
+
 	system ("cls");
-	
+
 	printf ("\n\t\t\t-> Existem dois jogadores: o enforcador e o enforcado.");
 	printf ("\n\n\t\t\t-> O enforcador escolhe uma palavra e uma dica e o enforcado tenta adivinhar.");
 	printf ("\n\n\t\t\t-> O enforcador tem que garantir que o enforcado não veja a palavra que irá digitar.");
@@ -81,24 +88,26 @@ void instrucoes () {
 	printf ("\n\n\t\t\t-> O enforcado tenta acertar a palavra chutando letras.");
 	printf ("\n\n\t\t\t-> São concedidas apenas 7 chances de erro.");
 	printf ("\n\n\t\t\t-> Caso queira tentar chutar a palavra, basta digitar a tecla \"#\".");
-	
+
 	printf ("\n\n\n\n\n\n\t\t\t\t\tDigite uma tecla para voltar ao menu ->");
 	scanf ("%c", &voltar);
 	fflush (stdin);
-	
+
 	system ("cls");
-	
+
 }
 
 void multiPlayer () {
+
 	char palavra[50], chute[50], dica[50], letra, mostraPalavra[50];
 	char resp, tecla;
 	int contadorErros = 0, i, contador;
 	int chances = 7, pontos = 0;
+	int aux = 0;
 
 	do {
 		system ("cls");
-		
+
 		printf ("\n\tCERTIFIQUE-SE DE QUE SEU AMIGO NÃO O VEJA ESCREVENDO A PALAVRA!");
 		printf ("\n\n\tInforme a a palavra para começar.\n");
 
@@ -137,12 +146,16 @@ void multiPlayer () {
 				printf ("\n\tPor favor, digite uma dica!");
 			}
 
-		} while (strlen (dica) == 0);
+			if (strcmp (dica, palavra) == 0) {
+				printf ("\n\tVocê não pode escolher a mesma palavra para a dica!");
+			}
+
+		} while (strlen (dica) == 0 || strcmp (dica, palavra) == 0);
 
 		system ("cls");
 
-		printf ("\n\t\t\t\t\t\t********ATENÇÃO********");
-		printf ("\n------------------------------------------------------------------------------------------------------------------------");
+		printf ("\n\t\t\t\t\t\t******** ATENÇÃO ********");
+		printf ("\n________________________________________________________________________________________________________________________");
 		printf ("\n\n\tTem certeza de que deseja escolher a palavra \"%s\" com a dica \"%s\"?\n", palavra, dica);
 		printf ("\n\t(S/N) -> ");
 		scanf ("%c", &resp);
@@ -151,7 +164,7 @@ void multiPlayer () {
 	} while (resp != 's');
 
 	system ("cls");
-	
+
 	for (contador = 0; contador < strlen (palavra); contador++) {
 		mostraPalavra[contador] = '_';
 	}
@@ -164,13 +177,13 @@ void multiPlayer () {
 		printf ("\n\t\t\t*Basta Digitar \"#\" quando souber a palavra e quiser chutar.");
 		printf ("\n------------------------------------------------------------------------------------------------------------------------");
 		printf ("\n\t\t\t\t\t\t\tVALENDO!");
-			
+
 		printf ("\n\n\tDICA: %s", dica);
 		printf ("\n\n\tQuantidade de letras na palavra: %d", strlen (palavra));
 		printf ("\n\tChances disponíveis: %d", chances);
 
 		boneco (contadorErros);
-			
+
 		for (contador = 0; contador < strlen (palavra); contador ++) {
 			printf ("%c ", mostraPalavra[contador]);
 
@@ -184,18 +197,22 @@ void multiPlayer () {
 		scanf ("%c", &letra);
 		letra = toupper(letra);
 		fflush (stdin);
-		
+
 		for (contador = 0; contador < strlen(palavra); contador++) {
 
 			if (letra == palavra[contador]) {
 				mostraPalavra[contador] = letra;
 				pontos++;
-			} else {
-				//contadorErros++;
+				aux = 0;
 			}
 
 		}
-			
+
+		if (aux = 1) {
+			contadorErros++;
+			chances--;
+		}
+
 		if (letra == '#') {
 			printf ("\n\tDigite o seu chute -> ");
 			gets (chute);
@@ -212,15 +229,17 @@ void multiPlayer () {
 				fflush (stdin);
 				system ("cls");
 				menu ();
+				break;
 			} else {
 				system ("cls");
 				boneco (contadorErros = 7);
-				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s", palavra);
+				printf (ANSI_COLOR_RED "\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s" ANSI_COLOR_RESET);
 				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
 				scanf ("%c", &tecla);
 				fflush (stdin);
 				system ("cls");
 				menu ();
+				break;
 			}
 		}
 
@@ -231,6 +250,7 @@ void multiPlayer () {
 			fflush (stdin);
 			system ("cls");
 			menu ();
+			break;
 		}
 
 		if (contadorErros == 7) {
@@ -242,12 +262,12 @@ void multiPlayer () {
 			fflush (stdin);
 			system ("cls");
 			menu ();
+			break;
 		}
-		
+
 		system ("cls");
 	}
 }
-
 
 void boneco (int contadorErros) {
 
@@ -336,18 +356,17 @@ void boneco (int contadorErros) {
 		printf ("\n\t|");
 		printf ("\n\t|");
 	} else if (contadorErros == 7) {
-		printf ("\n\t________________");
-		printf ("\n\t|            ***");
-		printf ("\n\t|           *   *");
-		printf ("\n\t|            ***");
-		printf ("\n\t|          -------");
-		printf ("\n\t|            /|\\");
-		printf ("\n\t|           / | \\");
-		printf ("\n\t|             |");
-		printf ("\n\t|            / \\");
-		printf ("\n\t|           /   \\");
-		printf ("\n\t|");
-		printf ("\n\t|");
+		printf (ANSI_COLOR_RED"\n\t________________"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|            ***"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|           *   *"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|            ***"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|          -------"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|            /|\\"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|           / | \\"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|             |"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|            / \\"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|           /   \\"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|"ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_RED"\n\t|"ANSI_COLOR_RESET);
 	}
 }
-
