@@ -16,7 +16,7 @@
 #include <windows.h>
 
 #define ANSI_COLOR_RED      "\x1b[31m"
-#define ANSI_COLOR_GREEN	"\e[0;32m"
+#define ANSI_COLOR_GREEN    "\e[0;32m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 
 void menu ();
@@ -223,7 +223,11 @@ void multiPlayer () {
 			}
 
 			if (strcmp (chute, palavra) == 0) {
-				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: %s", palavra);
+				
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: ");
+				printf (ANSI_COLOR_GREEN"");
+				printf ("%s", palavra);
+				printf (""ANSI_COLOR_RESET);
 				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
 				scanf ("%c", &tecla);
 				fflush (stdin);
@@ -233,7 +237,10 @@ void multiPlayer () {
 			} else {
 				system ("cls");
 				boneco (contadorErros = 7);
-				printf (ANSI_COLOR_RED "\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s" ANSI_COLOR_RESET);
+				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: ");
+				printf (ANSI_COLOR_GREEN"");
+				printf ("%s", palavra);
+				printf (""ANSI_COLOR_RESET);
 				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
 				scanf ("%c", &tecla);
 				fflush (stdin);
@@ -244,7 +251,10 @@ void multiPlayer () {
 		}
 
 		if (pontos == strlen (palavra)) {
-			printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: %s", palavra);
+			printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: ");
+			printf (ANSI_COLOR_GREEN"");
+			printf ("%s", palavra);
+			printf (""ANSI_COLOR_RESET);
 			printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
 			scanf ("%c", &tecla);
 			fflush (stdin);
@@ -256,7 +266,10 @@ void multiPlayer () {
 		if (contadorErros == 7) {
 			system ("cls");
 			boneco (contadorErros);
-			printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: %s", palavra);
+			printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: ");
+			printf (ANSI_COLOR_GREEN"");
+			printf ("%s", palavra);
+			printf (""ANSI_COLOR_RESET);
 			printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
 			scanf ("%c", &tecla);
 			fflush (stdin);
@@ -356,17 +369,17 @@ void boneco (int contadorErros) {
 		printf ("\n\t|");
 		printf ("\n\t|");
 	} else if (contadorErros == 7) {
-		printf (ANSI_COLOR_RED"\n\t________________"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|            ***"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|           *   *"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|            ***"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|          -------"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|            /|\\"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|           / | \\"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|             |"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|            / \\"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|           /   \\"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|"ANSI_COLOR_RESET);
-		printf (ANSI_COLOR_RED"\n\t|"ANSI_COLOR_RESET);
+		printf ("\n\t________________");
+		printf ("\n\t|"ANSI_COLOR_RED"            ***"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"           *   *"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"            ***"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"          -------"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"            /|\\"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"           / | \\"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"             |"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"            / \\"ANSI_COLOR_RESET);
+		printf ("\n\t|"ANSI_COLOR_RED"           /   \\"ANSI_COLOR_RESET);
+		printf ("\n\t|");
+		printf ("\n\t|");
 	}
 }
