@@ -272,8 +272,6 @@ void multiPlayer () {
 			}
 			
 		}
-		
-		
 
 		if (contadorErros == 7) {
 			system ("cls");
