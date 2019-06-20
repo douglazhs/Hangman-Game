@@ -12,14 +12,14 @@
 #include <string.h>
 #include <locale.h>
 #include <ctype.h>
-#include <conio.h>
-#include <windows.h>
+#include <time.h>
 
 #define ANSI_COLOR_RED      "\x1b[31m"
 #define ANSI_COLOR_GREEN    "\e[0;32m"
 #define ANSI_COLOR_RESET    "\x1b[0m"
 #define ANSI_COLOR_PURPLE   "\e[0;35m"
 #define ANSI_COLOR_YELLOW   "\e[1;33m"
+#define ANSI_COLOR_BLUE     "\e[1;34m"
 
 void menu ();
 void instrucoes ();
@@ -39,11 +39,22 @@ int main () {
 void menu () {
 
 	int opcao;
+	int i, j;
+
+	system ("cls");
+	for (i = 0; i < 3; i++) {
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tCarregando");
+        for (j = 0; j < 3; j++) {
+            printf(ANSI_COLOR_BLUE"."ANSI_COLOR_RESET);
+            Sleep(200);
+        }
+        system ("cls");
+    }
 
 	do {
 		printf ("\n========================================================================================================================");
 		printf ("\n");
-		printf ("\n\t\t\t\t\t                 JOGO DA FORCA");
+		printf (ANSI_COLOR_BLUE"\n\t\t\t\t\t                 JOGO DA FORCA"ANSI_COLOR_RESET);
 		printf ("\n\t\t\t\t\t\t________________");
 		printf ("\n\t\t\t\t\t\t|             ***");
 		printf ("\n\t\t\t\t\t\t|            *   *");
@@ -53,12 +64,12 @@ void menu () {
 		printf ("\n\t\t\t\t\t\t|             / \\");
 		printf ("\n\t\t\t\t\t\t|            /   \\");
 		printf ("\n========================================================================================================================");
-		printf (ANSI_COLOR_PURPLE"\n\t\t\t\t\t        [1]"ANSI_COLOR_RESET" JOGAR MULTIPLAYER");
-		printf (ANSI_COLOR_PURPLE"\n\t\t\t\t\t        [2]"ANSI_COLOR_RESET" JOGAR SINGLE PLAYER");
-		printf (ANSI_COLOR_PURPLE"\n\t\t\t\t\t        [3]"ANSI_COLOR_RESET" INSTRUÇÕES");
-		printf (ANSI_COLOR_PURPLE"\n\t\t\t\t\t        [4]"ANSI_COLOR_RESET" SAIR");
+		printf (ANSI_COLOR_BLUE"\n\t\t\t\t\t        [1]"ANSI_COLOR_RESET" JOGAR MULTIPLAYER");
+		printf (ANSI_COLOR_BLUE"\n\t\t\t\t\t        [2]"ANSI_COLOR_RESET" JOGAR SINGLE PLAYER");
+		printf (ANSI_COLOR_BLUE"\n\t\t\t\t\t        [3]"ANSI_COLOR_RESET" INSTRUÇÕES");
+		printf (ANSI_COLOR_BLUE"\n\t\t\t\t\t        [4]"ANSI_COLOR_RESET" SAIR");
 
-		printf ("\n\n\t\t\t\t\t\tOPÇÃO -> ");
+		printf (ANSI_COLOR_BLUE"\n\n\t\t\t\t\t\tOPÇÃO -> "ANSI_COLOR_RESET);
 		scanf ("%d", &opcao);
 		fflush (stdin);
 
@@ -67,6 +78,15 @@ void menu () {
 		} else if (opcao == 3) {
 			instrucoes ();
 		} else if (opcao == 4) {
+			system ("cls");
+			for (i = 0; i < 5; i++) {
+        		printf("\n\t\t\t\t\t\t\tSAINDO");
+        		for (j = 0; j < 3; j++) {
+            		printf(ANSI_COLOR_BLUE"."ANSI_COLOR_RESET);
+            		Sleep(200);
+				}
+				system ("cls");
+        	}
 			break;
 		}
 
@@ -104,7 +124,7 @@ void multiPlayer () {
 	char resp, tecla;
 	int contadorErros = 0, i, contador;
 	int chances = 7, pontos = 0;
-	int aux = 0;
+	int aux = 1;
 
 	do {
 		system ("cls");
@@ -122,7 +142,6 @@ void multiPlayer () {
 			if (strlen (palavra) == 0) {
 				printf (ANSI_COLOR_RED"\tPor favor, digite uma palavra para começar o jogo!"ANSI_COLOR_RESET);
 			}
-
 		} while (strlen (palavra) == 0);
 
 		for (i = 0; i < strlen (palavra); i++) {
@@ -184,14 +203,34 @@ void multiPlayer () {
 
 		boneco (contadorErros);
 
-		for (contador = 0; contador < strlen (palavra); contador ++) {
-			printf ("%c ", mostraPalavra[contador]);
+		for (contador = 0; contador <= strlen (palavra); contador ++) {
+			if (pontos < strlen (palavra)) {
+				printf ("%c ", mostraPalavra[contador]);
+			} else if (pontos == strlen (palavra) ) {
+				printf (ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, mostraPalavra);
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
+				scanf ("%c", &tecla);
+				fflush (stdin);
+				system ("cls");
+				menu ();
+			}
+			
+			if (strcmp (chute, palavra) == 0) {
+				printf (ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
+				scanf ("%c", &tecla);
+				fflush (stdin);
+				system ("cls");
+				menu ();
+			}
 
 			if (palavra[contador] == ' ') {
 				mostraPalavra[contador] = '-';
 			}
 		}
-
+		
 		printf ("\n\n\tLetras já escolhidas: %c ", letra);
 		printf (ANSI_COLOR_YELLOW"\n\n\tTentar uma letra -> "ANSI_COLOR_RESET);
 		scanf ("%c", &letra);
@@ -199,17 +238,15 @@ void multiPlayer () {
 		fflush (stdin);
 
 		for (contador = 0; contador < strlen(palavra); contador++) {
-
 			if (letra == palavra[contador]) {
 				mostraPalavra[contador] = letra;
 				pontos++;
 				aux = 0;
 			}
-
 		}
 
-		if (aux = 1) {
-			contadorErros++;
+		if (aux == 1) {
+			//contadorErros++;
 			chances--;
 		}
 
@@ -221,17 +258,8 @@ void multiPlayer () {
 			for (i = 0; i < strlen (chute); i++) {
 				chute[i] = toupper (chute[i]);
 			}
-
-			if (strcmp (chute, palavra) == 0) {
-				
-				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET);
-				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-				scanf ("%c", &tecla);
-				fflush (stdin);
-				system ("cls");
-				menu ();
-				break;
-			} else {
+			
+			if (strcmp (chute, palavra) != 0) {
 				system ("cls");
 				boneco (contadorErros = 7);
 				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
@@ -242,17 +270,10 @@ void multiPlayer () {
 				menu ();
 				break;
 			}
+			
 		}
-
-		if (pontos == strlen (palavra)) {
-			printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET);
-			printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-			scanf ("%c", &tecla);
-			fflush (stdin);
-			system ("cls");
-			menu ();
-			break;
-		}
+		
+		
 
 		if (contadorErros == 7) {
 			system ("cls");
