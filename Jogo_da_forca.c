@@ -34,8 +34,6 @@ void multiPlayer ();
 
 void instrucoes () {
 
-	char voltar;
-
 	system ("cls");
 
 	printf (ANSI_COLOR_PURPLE"\n\t\t\t->"ANSI_COLOR_RESET" Existem dois jogadores: o enforcador e o enforcado.");
@@ -47,9 +45,8 @@ void instrucoes () {
 	printf (ANSI_COLOR_PURPLE"\n\n\t\t\t->"ANSI_COLOR_RESET" São concedidas apenas 7 chances de erro.");
 	printf (ANSI_COLOR_PURPLE"\n\n\t\t\t->"ANSI_COLOR_RESET" Caso queira tentar chutar a palavra, basta digitar a tecla \"@\".");
 
-	printf ("\n\n\n\n\n\n\t\t\t\t\tDigite uma tecla para voltar ao menu"ANSI_COLOR_PURPLE" ->"ANSI_COLOR_RESET);
-	scanf ("%c", &voltar);
-	fflush (stdin);
+	printf ("\n\n\n\n\n\n\t\t\t\t\tAPERTE UMA TELCA PARA VOLTAR AO MENU ->"ANSI_COLOR_PURPLE" ->"ANSI_COLOR_RESET);
+	getch ();
 
 	system ("cls");
 
@@ -169,7 +166,7 @@ void menu () {
 	system ("cls");
 
 	for (i = 0; i < 3; i++) {
-        printf("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tCarregando");
+        printf("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tCARREGANDO");
         for (j = 0; j < 3; j++) {
             printf(ANSI_COLOR_BLUE"."ANSI_COLOR_RESET);
             Sleep(200);
@@ -222,26 +219,42 @@ void menu () {
 
 //Leitura e validação das letras digitadas.
 
+int validaIgual (char letra, char letrasDigitadas[], int contador) {
+	int i;
+	
+	for (i = 0; i < contador; i++) {
+		if (letra == letrasDigitadas[i]) {
+			return 1;
+		}
+	}
+	return 0;
+}
+
 char leValidaLetras (char letrasDigitadas[], int contador) {
 	char letra;
 	int cont;
-
+	int flag;
+		
 	do {
-		printf (ANSI_COLOR_YELLOW"\n\tTentar uma letra -> "ANSI_COLOR_RESET);
+		flag = 0;
+		fflush (stdin);
+		printf (ANSI_COLOR_YELLOW"\n\tTENTAR UMA LETRA -> "ANSI_COLOR_RESET);
 		scanf ("%c", &letra);
 		fflush (stdin);
 		letra = toupper (letra);
-
-		if (letra == letrasDigitadas[contador]) {
-			printf (ANSI_COLOR_RED"\n\tLetra já existente!"ANSI_COLOR_RESET);
+		letrasDigitadas[contador] = letra;
+		flag = validaIgual (letra, letrasDigitadas, contador);
+	
+		if (flag == 1) {
+			printf (ANSI_COLOR_RED"\n\tLETRA JÁ EXISTENTE!"ANSI_COLOR_RESET);
 		}
-
+		
 		if (letra < 64 || letra > 90) {
-			printf (ANSI_COLOR_RED"\tLetra inválida!"ANSI_COLOR_RESET);
+			printf (ANSI_COLOR_RED"\tLETRA INVÁLIDA!"ANSI_COLOR_RESET);
 			Sleep (80);
 		}
 
-	} while (letra < 64 || letra > 90 || letra == letrasDigitadas[contador]);
+	} while (letra < 64 || letra > 90 || flag == 1);
 
 	return letra;
 }
@@ -254,17 +267,17 @@ sub-algorítmo "leValidaTextos".
 
 void multiPlayer () {
 
-	char palavra[50], chute[50], tema[50], letra, mostraPalavra[50], letrasDigitadas[26];
-	char resp, tecla;
+	char palavra[50], chute[50], tema[50], letra, mostraPalavra[50], letrasDigitadas[26] = "";
+	char resp;
 	int contadorErros = 0, i, contador;
 	int chances = 7, pontos = 0;
-	int aux ;
+	int aux;
 
 	do {
 		system ("cls");
 
 		printf ("\n\tCERTIFIQUE-SE DE QUE SEU AMIGO NÃO O VEJA ESCREVENDO A PALAVRA!");
-		printf ("\n\n\tInforme a a palavra para começar.\n");
+		printf ("\n\n\tINFORME A PALAVRA.\n");
 
 		printf (ANSI_COLOR_YELLOW"\n\tPALAVRA -> "ANSI_COLOR_RESET);
 		leValidaTextos (palavra);
@@ -277,7 +290,7 @@ void multiPlayer () {
 			palavra[i] = toupper (palavra[i]);
 		}
 
-		printf ("\n\tAgora informe o tema para ficar mais facil de seu amigo conseguir acertar.\n");
+		printf ("\n\tAGORA INFORME O TEMA PARA FICAR MAIS FÁCIL DE SEU AMIGO ACERTAR.\n");
 
 
 		printf (ANSI_COLOR_YELLOW"\n\tTEMA -> "ANSI_COLOR_RESET);
@@ -294,73 +307,60 @@ void multiPlayer () {
 		system ("cls");
 
 		printf (ANSI_COLOR_YELLOW"\n\t\t\t\t\t\t          ATENÇÃO"ANSI_COLOR_RESET);
-		printf ("\n\n\tTem certeza de que deseja escolher a palavra \""ANSI_COLOR_YELLOW"%s"ANSI_COLOR_RESET"\" com o tema \""ANSI_COLOR_YELLOW"%s"ANSI_COLOR_RESET"\" ?\n", palavra, tema);
+		printf ("\n\n\tTEM CERTEZA QUE DESEJA ESCOLHER A PALAVRA \""ANSI_COLOR_YELLOW"%s"ANSI_COLOR_RESET"\" COM O TEMA \""ANSI_COLOR_YELLOW"%s"ANSI_COLOR_RESET"\" ?\n", palavra, tema);
 		printf (ANSI_COLOR_YELLOW"\n\t(S/N) -> "ANSI_COLOR_RESET);
 		scanf ("%c", &resp);
+		resp = toupper (resp);
 		fflush (stdin);
 
-	} while (resp != 's');
+	} while (resp != 'S');
 
 	system ("cls");
 
 	for (contador = 0; contador < strlen (palavra); contador++) {
-		mostraPalavra[contador] = '_';
+		fflush (stdin);
+		strcat (mostraPalavra, "_");
 	}
 
 	for (contador = 0; contadorErros < 8; contador++) {
 		aux = 1;
   		printf ("------------------------------------------------------------------------------------------------------------------------");
 		printf (ANSI_COLOR_YELLOW"\n\t\t\tRELEMBRANDO:"ANSI_COLOR_RESET);
-		printf ("\n\n\t\t\t*Agora, você pode escolher uma letra ou tentar acertar sua palavra!");
-		printf ("\n\t\t\t*Lembrando que você pode errar até 6 vezes.");
-		printf ("\n\t\t\t*Basta Digitar \"@\" quando souber a palavra e quiser chutar.");
+		printf ("\n\n\t\t\t*AGORA, VOCÊ PODE ESCOLHER UMA LETRA OU ARRISCAR UM CHUTE.");
+		printf ("\n\t\t\t*VOCÊ PODE ERRAR ATÉ 6 VEZES.");
+		printf ("\n\t\t\t*BASTA DIGITAR \"@\" QUANDO SOUBER A PALAVRA E QUISER ARRISCAR UM CHUTE.");
 		printf ("\n------------------------------------------------------------------------------------------------------------------------");
 		printf ("\n\t\t\t\t\t\t\tVALENDO!");
 
 		printf ("\n\n\tTEMA:"ANSI_COLOR_YELLOW" %s"ANSI_COLOR_RESET, tema);
-		printf ("\n\n\tQuantidade de letras na palavra:"ANSI_COLOR_YELLOW " %d"ANSI_COLOR_RESET, strlen (palavra));
-		printf ("\n\tChances disponíveis: "ANSI_COLOR_YELLOW"%d"ANSI_COLOR_RESET, chances);
+		printf ("\n\n\tQUANTIDADE DE LETRAS NA PALAVRA:"ANSI_COLOR_YELLOW " %d"ANSI_COLOR_RESET, strlen (palavra));
+		printf ("\n\tCHANCES DISPONÍVEIS: "ANSI_COLOR_YELLOW"%d"ANSI_COLOR_RESET, chances);
 
 		boneco (contadorErros);
 
 		//Lógica para substituição dos underlines pelas letras digitadas, caso estejam certas e desenhamento do boneco, caso erradas.
-		for (contador = 0; contador <= strlen (palavra) && palavra[contador] != '\0'; contador ++) {
+		for (contador = 0; contador < strlen (palavra) && palavra[contador] != '\0'; contador ++) {
 			if (pontos < strlen (palavra)) {
 				printf ("%c ", mostraPalavra[contador]);
 			} else if (pontos == strlen (palavra) ) {
 				printf (ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-				scanf ("%c", &tecla);
-				fflush (stdin);
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! PALAVRA: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\n\n\tAPERTE UMA TECLA PARA VOLTAR AO MENU ->> ");
+				getch();
 				system ("cls");
 				menu ();
 			}
 
-			if (strcmp (chute, palavra) == 0) {
-				printf (ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! Palavra: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-				scanf ("%c", &tecla);
-				fflush (stdin);
-				system ("cls");
-				menu ();
-			}
-
-			if (palavra[contador] == ' ') {
+			if (palavra[contador] == ' '){
 				mostraPalavra[contador] = '-';
-			}
-
-			if (palavra[contador] == '\0') {
-
 			}
 
 		}
 
- 		printf ("\n\n\tLetras já escolhidas: %c ", letrasDigitadas[contador]);
+ 		printf ("\n\n\tLETRAS JÁ ESCOLHIDAS: %c ", letrasDigitadas[contador]);
 
-		letra = leValidaLetras (letrasDigitadas, contador);
-		letrasDigitadas[contador] = letra;
+		letra = leValidaLetras (letrasDigitadas, strlen(letrasDigitadas));
+		contador++;
 
 		for (contador = 0; contador < strlen(palavra); contador++) {
 			if (letra == palavra[contador]) {
@@ -376,21 +376,27 @@ void multiPlayer () {
 		}
 
 		if (letra == '@') {
-			printf (ANSI_COLOR_YELLOW"\n\tDigite o seu chute -> "ANSI_COLOR_RESET);
+			printf (ANSI_COLOR_YELLOW"\n\tDIGITE SEU CHUTE -> "ANSI_COLOR_RESET);
 			gets (chute);
 			fflush (stdin);
-
+            
 			for (i = 0; i < strlen (chute); i++) {
 				chute[i] = toupper (chute[i]);
 			}
-
-			if (strcmp (chute, palavra) != 0) {
+			
+			if (strcmp(chute, palavra) == 0) {
+				printf ("\n\t\t\t\t\t     VOCÊ GANHOU! A PALAVRA ERA: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\n\n\tDIGITE UMA TECLA PARA VOLTAR AO MENU ->> ");
+				getch ();
+				system ("cls");
+				menu ();
+				break;	
+			} else {
 				system ("cls");
 				boneco (contadorErros = 7);
-				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-				printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-				scanf ("%c", &tecla);
-				fflush (stdin);
+				printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A PALAVRA ERA: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+				printf ("\n\n\n\tDIGITE UMA TECLA PARA VOLTAR AO MENU ->> ");
+				getch ();
 				system ("cls");
 				menu ();
 				break;
@@ -401,10 +407,9 @@ void multiPlayer () {
 		if (contadorErros == 7) {
 			system ("cls");
 			boneco (contadorErros);
-			printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A palavra era: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
-			printf ("\n\n\n\tDigite uma tecla pra voltar ao menu ->> ");
-			scanf ("%c", &tecla);
-			fflush (stdin);
+			printf ("\n\t\t\t\t\t     VOCÊ PERDEU! A PALAVRA ERA: "ANSI_COLOR_GREEN"%s"ANSI_COLOR_RESET, palavra);
+			printf ("\n\n\n\tDIGITE UMA TECLA PARA VOLTAR AO MENU ->> ");
+			getch ();
 			system ("cls");
 			menu ();
 			break;
@@ -435,7 +440,7 @@ void leValidaTextos (char *palavra) {
 
 		if (strlen (palavra) == 0) {
 			system ("cls");
-			printf (ANSI_COLOR_RED"\tPor favor, digite algo: "ANSI_COLOR_RESET);
+			printf (ANSI_COLOR_RED"\tPOR FAVOR, DIGITE ALGO: "ANSI_COLOR_RESET);
 		}
 	} while (strlen (palavra) == 0);
 
