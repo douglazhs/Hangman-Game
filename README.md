@@ -137,7 +137,7 @@ char leValidaLetras (char letrasDigitadas[], int contador) {
 	return letra;
 }
 ```
-![VALIDAÇÃO]()
+![VALIDAÇÃO](https://i.imgur.com/LipwPsI.png)
 ![VALIDAÇÃO](https://i.imgur.com/wXNjGFt.png)
 
 ### Leitura e validação dos textos digitados, como a palavra, o tema e o chute, usando um ponteiro para a palavra a ser informada
