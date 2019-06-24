@@ -166,6 +166,7 @@ void menu () {
 
 	system ("cls");
 
+	//Simulação de tela de load.
 	for (i = 0; i < 3; i++) {
         printf("\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tCARREGANDO");
         for (j = 0; j < 3; j++) {
@@ -199,6 +200,7 @@ void menu () {
 			multiPlayer ();
 		} else if (opcao == 2) {
 			instrucoes ();
+		//Simulação de saída do jogo.
 		} else if (opcao == 3) {
 			system ("cls");
 			for (i = 0; i < 4; i++) {
@@ -217,7 +219,7 @@ void menu () {
 	} while (opcao != 3);
 }
 
-//Leitura e validação das letras digitadas.
+//Leitura e validação das letras digitadas, podendo ser somente do alfabeto e não podendo se repetir.
 
 int validaIgual (char letra, char letrasDigitadas[], int contador) {
 	int i;
@@ -238,17 +240,19 @@ char leValidaLetras (char letrasDigitadas[], int contador) {
 	do {
 		flag = 0;
 		fflush (stdin);
-		printf (ANSI_COLOR_PURPLE"\n\tTENTAR UMA LETRA "ANSI_COLOR_RED">"ANSI_COLOR_RESET ANSI_COLOR_GREEN"> "ANSI_COLOR_RESET);
+		printf (ANSI_COLOR_PURPLE"\n\n\tTENTAR UMA LETRA "ANSI_COLOR_RED">"ANSI_COLOR_RESET ANSI_COLOR_GREEN"> "ANSI_COLOR_RESET);
 		scanf ("%c", &letra);
 		fflush (stdin);
 		letra = toupper (letra);
 		letrasDigitadas[contador] = letra;
 		flag = validaIgual (letra, letrasDigitadas, contador);
 
+		//Validação para o enforcado não digitar uma letra já existente.
 		if (flag == 1) {
 			printf (ANSI_COLOR_RED"\tLETRA JÁ EXISTENTE!"ANSI_COLOR_RESET);
 		}
 
+		//Validação para o enforcado digitar apenas letras do alfabeto.
 		if (letra < 64 || letra > 90) {
 			printf (ANSI_COLOR_RED"\tLETRA INVÁLIDA!"ANSI_COLOR_RESET);
 			Sleep (80);
@@ -317,6 +321,7 @@ void multiPlayer () {
 
 	system ("cls");
 
+	//Atribuindo undelines à palavra.
 	for (contador = 0; contador < strlen (palavra); contador++) {
 		mostraPalavra[contador] = '_';
 	}
@@ -337,7 +342,7 @@ void multiPlayer () {
 
 		boneco (contadorErros);
 
-		//Lógica para substituição dos underlines pelas letras digitadas, caso estejam certas e desenhamento do boneco, caso erradas.
+		//Printando os underlines
 		for (contador = 0; contador < strlen (palavra) && palavra[contador] != '\0'; contador ++) {
 			if (pontos < strlen (palavra)) {
 				printf ("%c ", mostraPalavra[contador]);
@@ -359,14 +364,9 @@ void multiPlayer () {
 
 		fflush (stdin);
 
-		//Printar letras já digitadas.
- 		printf ("\n\n\tLETRAS JÁ ESCOLHIDAS "ANSI_COLOR_RED">"ANSI_COLOR_RESET ANSI_COLOR_GREEN"> "ANSI_COLOR_RESET);
-		for (i = 0; i < strlen (letrasDigitadas); i++) {
-			printf (" %c -", letrasDigitadas[i]);
-		}
-
 		letra = leValidaLetras (letrasDigitadas, strlen(letrasDigitadas));
-
+		
+		//Lógica para substituição dos underlines pelas letras digitadas, caso estejam certas e desenhamento do boneco, caso erradas.
 		for (contador = 0; contador < strlen(palavra); contador++) {
 			if (letra == palavra[contador]) {
 				mostraPalavra[contador] = letra;
