@@ -69,8 +69,6 @@ void menu () {
 ```
 ![MENU]()
 
-# ADICIONAR PALAVRA E TEMA
-
 # VALIDAÇÕES
 ### Leitura e validação das letras digitadas, podendo ser somente do alfabeto e não podendo se repetir.
 ```c
@@ -116,7 +114,7 @@ char leValidaLetras (char letrasDigitadas[], int contador) {
 	return letra;
 }
 ```
-![VALIDAÇÃO] ()
+![VALIDAÇÃO]()
 
 ### Leitura e validação dos textos digitados, como a palavra, o tema e o chute, usando um ponteiro para a palavra a ser informada.
 ```c
@@ -133,11 +131,11 @@ void leValidaTextos (char *palavra) {
 }
 ```
 
-![VALIDAÇÃO] ()
+![VALIDAÇÃO]()
 
 # RESULTADOS
-![RESULTADO] ()
-![RESULTADO] ()
+![RESULTADO]()
+![RESULTADO]()
 
 # PALAVRA E UNDERLINES
 
@@ -147,7 +145,7 @@ for (contador = 0; contador < strlen (palavra); contador++) {
 		mostraPalavra[contador] = '_';
 }
 ```
-[UNDERLINES] ()
+[UNDERLINES]()
 ### Substituição dos underlines pela letra digitada.
 ```c
 for (contador = 0; contador < strlen(palavra); contador++) {
@@ -158,7 +156,4 @@ for (contador = 0; contador < strlen(palavra); contador++) {
 			}
 	}
 ```
-[SUBSTIRUIÇÃO] ()
-
-
-
+[SUBSTIRUIÇÃO]()
