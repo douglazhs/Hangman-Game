@@ -137,7 +137,8 @@ char leValidaLetras (char letrasDigitadas[], int contador) {
 	return letra;
 }
 ```
-![VALIDAÇÃO](https://i.imgur.com/LipwPsI.png)
+![VALIDAÇÃO]()
+![VALIDAÇÃO](https://i.imgur.com/wXNjGFt.png)
 
 ### Leitura e validação dos textos digitados, como a palavra, o tema e o chute, usando um ponteiro para a palavra a ser informada
 ```c
@@ -175,7 +176,7 @@ for (contador = 0; contador < strlen(palavra); contador++) {
 			}
 	}
 ```
-![SUBSTIRUIÇÃO](https://i.imgur.com/FJye4HA.png)
+![SUBSTITUIÇÃO](https://i.imgur.com/FJye4HA.png)
 ## RESULTADOS
 ### Possibilidades de vitória
 #### 1. Acertando todas as letras
