@@ -1,10 +1,33 @@
-## JOGO DA FORCA
+# JOGO DA FORCA
 
-Jogo da forca desenvolvido em linguagem c.
+Jogo da forca desenvolvido em linguagem c
 
-# MENU
+## ESQUEMAS DE CORES UTILIZADAS NO PADRÃO ANSI
+```c
+#define ANSI_COLOR_RED      "\e[1;31m"
+#define ANSI_COLOR_GREEN    "\e[1;32m"
+#define ANSI_COLOR_RESET    "\x1b[0m"
+#define ANSI_COLOR_PURPLE   "\e[1;35m"
+#define ANSI_COLOR_YELLOW   "\e[1;33m"
+#define ANSI_COLOR_BLUE     "\e[1;34m"
+#define ANSI_COLOR_CYAN     "\e[1;36m"
+```
+Você pode encontrar esses códigos de cores no site: https://bluesock.org/~willkg/dev/ansi.html
+### Aplicação
+```c
+	printf (ANSI_COLOR_PURPLE"\n\t\t\t\t         __                  _        ___                 "ANSI_COLOR_RESET);
+	printf (ANSI_COLOR_RED   "\n\t\t\t\t      __|  |___ ___ ___    _| |___   |  _|___ ___ ___ ___ "ANSI_COLOR_RESET);
+	printf (ANSI_COLOR_GREEN "\n\t\t\t\t     |  |  | . | . | . |  | . | .'|  |  _| . |  _|  _| .'|"ANSI_COLOR_RESET);
+	printf (ANSI_COLOR_CYAN  "\n\t\t\t\t     |_____|___|_  |___|  |___|__,|  |_| |___|_| |___|__,|"ANSI_COLOR_RESET);
+	printf (ANSI_COLOR_YELLOW"\n\t\t\t\t               |___|                                      "ANSI_COLOR_RESET);
+```
+#### 1. Primeiro, faça a definição dos códigos das cores para ficar mais fácil o uso deles.
+#### 2. Não se esqueça de definir a cor para resetar o texto para a cor anterior. 
+#### 3. O uso é bem simples! Dentro do parênteses, antes da primeira aspa, use a definição do código da cor. Então, logo após a última aspa, resete a cor para o texto não ficar com a mesma cor em todo o resto do código, como é mostrado acima.
 
-### Menu do jogo.
+## MENU
+
+### Menu do jogo
 
 ```c
 void menu () {
@@ -67,10 +90,10 @@ void menu () {
 	} while (opcao != 3);
 }
 ```
-![MENU]()
+![MENU](https://i.imgur.com/60bmISL.png)
 
-# VALIDAÇÕES
-### Leitura e validação das letras digitadas, podendo ser somente do alfabeto e não podendo se repetir.
+## VALIDAÇÕES
+### Leitura e validação das letras digitadas, podendo ser somente do alfabeto e não podendo se repetir
 ```c
 int validaIgual (char letra, char letrasDigitadas[], int contador) {
 	int i;
@@ -114,9 +137,9 @@ char leValidaLetras (char letrasDigitadas[], int contador) {
 	return letra;
 }
 ```
-![VALIDAÇÃO]()
+![VALIDAÇÃO](https://i.imgur.com/LipwPsI.png)
 
-### Leitura e validação dos textos digitados, como a palavra, o tema e o chute, usando um ponteiro para a palavra a ser informada.
+### Leitura e validação dos textos digitados, como a palavra, o tema e o chute, usando um ponteiro para a palavra a ser informada
 ```c
 void leValidaTextos (char *palavra) {
 
@@ -131,22 +154,18 @@ void leValidaTextos (char *palavra) {
 }
 ```
 
-![VALIDAÇÃO]()
+![VALIDAÇÃO](https://i.imgur.com/ehNlEem.png)
 
-# RESULTADOS
-![RESULTADO]()
-![RESULTADO]()
+## PALAVRA E UNDERLINES
 
-# PALAVRA E UNDERLINES
-
-### Atribuição dos underlines a palavra.
+### Atribuição dos underlines a palavra
 ```c
 for (contador = 0; contador < strlen (palavra); contador++) {
 		mostraPalavra[contador] = '_';
 }
 ```
-[UNDERLINES]()
-### Substituição dos underlines pela letra digitada.
+![UNDERLINES](https://i.imgur.com/5LXoriY.png)
+### Substituição dos underlines pela letra digitada
 ```c
 for (contador = 0; contador < strlen(palavra); contador++) {
 			if (letra == palavra[contador]) {
@@ -156,4 +175,16 @@ for (contador = 0; contador < strlen(palavra); contador++) {
 			}
 	}
 ```
-[SUBSTIRUIÇÃO]()
+![SUBSTIRUIÇÃO](https://i.imgur.com/FJye4HA.png)
+## RESULTADOS
+### Possibilidades de vitória
+#### 1. Acertando todas as letras
+![RESULTADO](https://i.imgur.com/rTaE7gw.png)
+#### 2. Acertando o chute arriscado
+![RESULTADO](https://i.imgur.com/4tPcV1f.png)
+### Possibilidades de derrota
+#### 1. Atingindo o número máximo de erros
+#### 2. Errando o chute arriscado
+![RESULTADO](https://i.imgur.com/z1FEoKK.png)
+
+
