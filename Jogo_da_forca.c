@@ -275,7 +275,7 @@ void multiPlayer () {
 	char resp;
 	int contadorErros = 0, i, contador;
 	int chances = 7, pontos = 0;
-	int aux;
+	int aux, flag;
 
 	do {
 		system ("cls");
@@ -357,13 +357,12 @@ void multiPlayer () {
 			}
 
 			if (palavra[contador] == '-' || palavra[contador] == ' '){
-				mostraPalavra[contador] = '-';
+				mostraPalavra[contador] = palavra[contador];
 			}
-
+			
 		}
 
 		fflush (stdin);
-
 		letra = leValidaLetras (letrasDigitadas, strlen(letrasDigitadas));
 		
 		//Lógica para substituição dos underlines pelas letras digitadas, caso estejam certas e desenhamento do boneco, caso erradas.
