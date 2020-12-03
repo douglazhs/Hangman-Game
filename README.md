@@ -1,6 +1,6 @@
 # JOGO DA FORCA
 
-Jogo da forca desenvolvido em linguagem c
+Jogo da forca desenvolvido em linguagem C.
 
 ## ESQUEMAS DE CORES UTILIZADAS NO PADRÃO ANSI
 ```c
