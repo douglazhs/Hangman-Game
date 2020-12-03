@@ -90,7 +90,7 @@ void menu () {
 	} while (opcao != 3);
 }
 ```
-![MENU](https://i.imgur.com/60bmISL.png)
+![MENU](https://imgur.com/PFhu7Aq)
 
 ## VALIDAÇÕES
 ### Leitura e validação das letras digitadas, podendo ser somente do alfabeto e não podendo se repetir
